@@ -1,0 +1,1 @@
+This is the Assets directory which will contain the css and javascript files as well as images
