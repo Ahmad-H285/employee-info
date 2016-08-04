@@ -9,7 +9,7 @@
 
 		$.ajax({
 
-			url: "../controllers/EmployeeController.php",
+			url: "../controllers/CreateEmployeeController.php",
 			type: "post",
 			data: {
 

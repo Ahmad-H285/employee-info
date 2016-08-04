@@ -47,7 +47,7 @@
 			</table>
 			
 
-			<form method="POST" action="../controllers/EmployeeController.php" id="create-user-form" class="modal" style="display: none">
+			<form method="POST" id="create-user-form" class="modal" style="display: none">
 			  	
 				<div class="row"><h3>Add Employee</h3></div>
 
