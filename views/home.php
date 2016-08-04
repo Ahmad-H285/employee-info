@@ -47,7 +47,7 @@
 			</table>
 			
 
-			<form id="create-user-form" class="modal" style="display: none">
+			<form method="POST" action="../controllers/EmployeeController.php" id="create-user-form" class="modal" style="display: none">
 			  	
 				<div class="row"><h3>Add Employee</h3></div>
 
@@ -79,11 +79,11 @@
 				    
   				</div>
 
-  				<a href="#" class="btn btn-info" rel="modal:close">Add</button>
+  				<a href="#" class="btn btn-info" rel="modal:close" onclick="createEmployee()">Add</a>
 
 			</form>
 
-			<a href="#create-user-form" rel="modal:open" role="button" class="btn btn-danger">Add Employee</a>
+			<a href="#create-user-form" rel="modal:open" class="btn btn-danger" onclick="createEmployee()">Add Employee</a>
 		
 		</div>
 
@@ -92,5 +92,6 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="../assets/node_modules/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../assets/node_modules/jquery-modal/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../assets/javascript/realtimeData.js" type="text/javascript" charset="utf-8"></script>
 
 </html>
