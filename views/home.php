@@ -83,7 +83,7 @@
 
 			</form>
 
-			<a href="#create-user-form" rel="modal:open" class="btn btn-danger" onclick="createEmployee()">Add Employee</a>
+			<a href="#create-user-form" rel="modal:open" class="btn btn-danger">Add Employee</a>
 		
 		</div>
 

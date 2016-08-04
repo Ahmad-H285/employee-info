@@ -5,7 +5,7 @@
 		var username = $("form#create-user-form .form-group #employee-name").val();
 		var email = $("form#create-user-form .form-group #employee-email").val();
 		var address = $("form#create-user-form .form-group #employee-address").val();
-		var image = $("form#create-user-form .form-group #employee-address").val();
+		var image = $("form#create-user-form .form-group #employee-picture").val();
 
 		$.ajax({
 
