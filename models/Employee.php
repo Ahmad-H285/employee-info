@@ -22,7 +22,7 @@ Class Employee {
 
 		}
 
-		echo "success";
+		//echo "success";
 
 	}
 
@@ -35,6 +35,40 @@ Class Employee {
 		if( mysqli_query($this -> conn, $sql) == true ) {
 			echo "Employee Added";
 		}
+
+		mysqli_close($this -> conn);
+
+	}
+
+	// retrieve employees username and email from users table
+
+	function listEmployees () {
+
+		$retrieve_employees = "SELECT `id`, `user_name`, `email` FROM `users`";
+
+		$list_result = mysqli_query($this -> conn, $retrieve_employees);
+
+		//var_dump($list_result);
+
+		if($list_result) {
+
+			$row_count = 0;
+
+			while ($employee_record = mysqli_fetch_array($list_result)) {
+				
+				//var_dump($employee_record);
+
+				 $result[$row_count] = $employee_record;
+
+				 $row_count++;
+
+			}
+
+			return $result;
+
+		}
+
+		mysqli_close($this -> conn);
 
 	}
 

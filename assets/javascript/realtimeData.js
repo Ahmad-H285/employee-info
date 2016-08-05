@@ -21,7 +21,7 @@
 			},
 
 			success: function(create) {
-				$("div.container").append(create);
+				$("div.container").append(create[1]);
 			}
 
 		});

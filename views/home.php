@@ -31,17 +31,24 @@
 
 				<tbody>
 
-					<tr>
-						
-						<td>1</td>
-						<td>Name value</td>
-						<td>Email value</td>
-						<td><a href="#">view</a></td>
-						<td><a href="#">edit</a></td>
-						<td><a href="#">delete</a></td>
+					<?php 
+						require_once "../models/Employee.php";
 
-					</tr>
-				
+						$employee_records = new Employee();
+						$display_employees = $employee_records -> listEmployees();
+						
+						foreach ($display_employees as $employees => $employee_info) { ?>
+							<tr>
+								<td><?php echo $employee_info["id"]; ?></td>
+								<td><?php echo $employee_info["user_name"]; ?></td>
+								<td><?php echo $employee_info["email"]; ?></td>
+								<td><a href="#">view</a></td>
+								<td><a href="#">edit</a></td>
+								<td><a href="#">delete</a></td>
+							</tr>	
+							
+						<?php }?>
+					
 				</tbody>
 
 			</table>

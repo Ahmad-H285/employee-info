@@ -11,4 +11,4 @@
 
 	$create_user -> createEmployee($_POST['employee-name'], $_POST['employee-email'], $_POST['employee-address'], $_POST['employee-image']);
 
-	var_dump($create_user);
+	//var_dump($create_user);
