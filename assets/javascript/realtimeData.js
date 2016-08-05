@@ -133,5 +133,34 @@
 
 	}
 
+	function deleteEmployee(event) {
+
+		var employee_email_delete = $(event.target).parent().parent().children("td.employee-email").text();
+
+		$.ajax({
+
+			url: "../controllers/DeleteEmployeeController.php",
+			type: "post",
+			data: {
+
+				"employee-email": employee_email_delete
+
+			},
+
+			success: function(remove) {
+
+				//$(".container").append(remove);
+				$("td.employee-email").filter(function() {
+					
+					return $(this).text() === employee_email_delete;
+				
+				}).parent().remove();
+
+			}
+
+		});
+
+	}
+
 
 

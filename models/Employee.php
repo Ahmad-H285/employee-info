@@ -133,5 +133,21 @@ Class Employee {
 
 	}
 
+	// Delete employee using his unique email
+
+	function deleteEmployee($single_employee_email) {
+
+		$delete_query = "DELETE FROM `users` WHERE `email`='$single_employee_email'";
+
+		$delete_employee = mysqli_query($this -> conn, $delete_query);
+
+		if(!$delete_employee) {
+
+			echo "Record could not be deleted";
+
+		}
+
+	}
+
 }
 
