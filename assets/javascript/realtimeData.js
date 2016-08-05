@@ -62,11 +62,22 @@
 
 					var view_json = JSON.parse(view);
 
-					//$(".container").append(view_json['employee-email']);
+					// Add data for view table
+
 					$("td.view-name").text(view_json['employee-name']);
 					$("td.view-email").text(view_json['employee-email']);
 					$("td.view-address").text(view_json['employee-address']);
 					$("td.view-image").text(view_json['employee-image']);
+
+					$("input[type='hidden']").attr("value", view_json['employee-email']);
+
+					// Add data for edit form
+
+					$("#employee-name-edit").attr("value", view_json['employee-name']);
+					$("#employee-email-edit").attr("value", view_json['employee-email']);
+					$("#employee-address-edit").attr("value", view_json['employee-address']);
+					$("#employee-picture-edit").attr("value", view_json['employee-image']);
+
 				}
 
 			});
@@ -77,7 +88,9 @@
 
 	// Ajax request to send post request to EditEmployeeController to edit specific employee data
 
-	function editEmployee(event) {
+	function editEmployee() {
+
+		var employee_email_old = $("input[type='hidden']").attr("value");
 
 		var employee_name_edit = $("#employee-name-edit").val();
 		var employee_email_edit = $("#employee-email-edit").val();
@@ -89,21 +102,34 @@
 			url: "../controllers/EditEmployeeController.php",
 			type: "post",
 			data: {
-			
+				
+				"employee_edit_email_old": employee_email_old,
 				"employee_edit_name": employee_name_edit,
 				"employee_edit_email": employee_email_edit,
 				"employee_edit_address": employee_address_edit,
-				"employer_edit_picture": employee_picture_edit
+				"employee_edit_picture": employee_picture_edit
 
 			},
 
 			success: function(edit) {
 
-				$(".container").append(edit);
+				var edit_json = JSON.parse(edit);
+
+				$("td.employee-email").filter(function() {
+					
+					return $(this).text() === employee_email_old;
+				
+				}).parent().children("td.employee-name").text(edit_json['employee-name']);
+
+				$("td.employee-email").filter(function() {
+					
+					return $(this).text() === employee_email_old;
+				
+				}).parent().children("td.employee-email").text(edit_json['employee-email']);
 
 			}
 
-		})
+		});
 
 	}
 

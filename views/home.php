@@ -43,7 +43,7 @@
 								<td class="employee-name"><?php echo $employee_info["user_name"]; ?></td>
 								<td class="employee-email"><?php echo $employee_info["email"]; ?></td>
 								<td><a href="#view-employee-info" rel="modal:open" class="view-employee" onclick="viewEmployee(event)">view</a></td>
-								<td><a href="#edit-user-form" rel="modal:open" class="edit-employee">edit</a></td>
+								<td><a href="#edit-user-form" rel="modal:open" onclick="viewEmployee(event)" class="edit-employee">edit</a></td>
 								<td><a href="#" class="delete-employee">delete</a></td>
 							</tr>	
 							
@@ -160,9 +160,11 @@
 				    
   				</div>
 
-  				<a href="#" class="btn btn-info" rel="modal:close" onclick="createEmployee()">Save</a>
+  				<a href="#" class="btn btn-info" rel="modal:close" onclick="editEmployee(event)">Save</a>
 
 			</form>
+			
+			<input type="hidden" id="employee_old_email" value="">
 
 	</body>
 	

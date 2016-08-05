@@ -101,5 +101,37 @@ Class Employee {
 
 	}
 
+	// Edit specific employee according to his unizue email
+
+	function editEmployee($single_employee_email, $user_name, $email, $address, $image_location) {
+
+		$update_query = "UPDATE `users` SET `user_name`='$user_name',`email`='$email',`address`='$address',`image_location`='$image_location' WHERE `email`='$single_employee_email'";
+
+		$edit_employee = mysqli_query($this -> conn, $update_query);
+
+		$return_updated_employee = "SELECT `user_name`, `email`, `address`, `image_location` FROM `users` WHERE `email` = '$email'";
+
+		$employee_new_record = mysqli_query($this -> conn, $return_updated_employee);
+
+		if($employee_new_record) {
+
+			//$row_count = 0;
+
+			while ($employee_new = mysqli_fetch_row($employee_new_record)) {
+				
+				 $employee_edit = $employee_new;
+
+				 //$row_count++;
+
+			}
+
+			return $employee_edit;
+
+		}
+
+		mysqli_close($this -> conn);
+
+	}
+
 }
 
