@@ -28,7 +28,7 @@
 					</tr>
 
 				</thead>
-
+				
 				<tbody>
 
 					<?php 
@@ -39,12 +39,12 @@
 						
 						foreach ($display_employees as $employees => $employee_info) { ?>
 							<tr>
-								<td><?php echo $employee_info["id"]; ?></td>
-								<td><?php echo $employee_info["user_name"]; ?></td>
-								<td><?php echo $employee_info["email"]; ?></td>
-								<td><a href="#">view</a></td>
-								<td><a href="#">edit</a></td>
-								<td><a href="#">delete</a></td>
+								<td class="employee-id"><?php echo $employee_info["id"]; ?></td>
+								<td class="employee-name"><?php echo $employee_info["user_name"]; ?></td>
+								<td class="employee-email"><?php echo $employee_info["email"]; ?></td>
+								<td><a href="#view-employee-info" rel="modal:open" class="view-employee" onclick="viewEmployee(event)">view</a></td>
+								<td><a href="#edit-user-form" rel="modal:open" class="edit-employee">edit</a></td>
+								<td><a href="#" class="delete-employee">delete</a></td>
 							</tr>	
 							
 						<?php }?>
@@ -52,6 +52,8 @@
 				</tbody>
 
 			</table>
+
+
 			
 
 			<form method="POST" id="create-user-form" class="modal" style="display: none">
@@ -93,6 +95,74 @@
 			<a href="#create-user-form" rel="modal:open" class="btn btn-danger">Add Employee</a>
 		
 		</div>
+
+		<table id="view-employee-info" class="modal table table-striped" style="display: none">
+			
+			<tr>
+				<th><h3>Employee's Info</h3></th>
+			</tr>
+
+			<tr>
+				<th>Name</th>
+				<td class="view-name"></td>
+			</tr>
+
+			<tr>
+				<th>Email</th>
+				<td class="view-email"></td>
+			</tr>
+
+			<tr>
+				<th>Address</th>
+				<td class="view-address"></td>
+			</tr>
+
+			<tr>
+				<th>Image</th>
+				<td class="view-image"></td>
+			</tr>
+
+			<tr>
+				<td><a href="#" class="btn btn-danger" rel="modal:close">Close</a></td>
+			</tr>
+
+		</table>
+
+		<form method="POST" id="edit-user-form" class="modal" style="display: none">
+			  	
+				<div class="row"><h3>Edit Employee</h3></div>
+
+			  	<div class="form-group">
+
+    				<label for="employee-name-edit">Name</label>
+    				<input type="text" class="form-control" id="employee-name-edit" placeholder="Name">
+
+  				</div>
+
+  				<div class="form-group">
+
+    				<label for="employee-email-edit">Email</label>
+    				<input type="email" class="form-control" id="employee-email-edit" placeholder="Email">
+
+  				</div>
+
+  				<div class="form-group">
+
+    				<label for="employee-address-edit">Address</label>
+    				<input type="text" class="form-control" id="employee-address-edit" placeholder="Address">
+
+  				</div>
+
+  				<div class="form-group">
+
+    				<label for="employee-picture-edit">Image upload</label>
+				    <input type="file" id="employee-picture-edit">
+				    
+  				</div>
+
+  				<a href="#" class="btn btn-info" rel="modal:close" onclick="createEmployee()">Save</a>
+
+			</form>
 
 	</body>
 	

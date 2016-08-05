@@ -11,6 +11,7 @@ Class Employee {
 	private $email;
 	private $address;
 	private $image_location;
+	private $single_employee_email;
 
 	function __construct() {
 
@@ -32,8 +33,8 @@ Class Employee {
 
 		$sql = "INSERT INTO `users`(`user_name`, `email`, `address`, `image_location`) VALUES ('$user_name','$email','$address','$image_location')";
 
-		if( mysqli_query($this -> conn, $sql) == true ) {
-			echo "Employee Added";
+		if( !(mysqli_query($this -> conn, $sql) == true ) ) {
+			echo "Problem occured while adding employee";
 		}
 
 		mysqli_close($this -> conn);
@@ -72,4 +73,33 @@ Class Employee {
 
 	}
 
+	// return a single employee records according to his unique email
+
+	function viewEmployee ($single_employee_email) {
+
+		$return_employee_record = "SELECT `user_name`, `email`, `address`, `image_location` FROM `users` WHERE `email` = '$single_employee_email'";
+
+		$employee_data = mysqli_query($this -> conn, $return_employee_record);
+
+		if($employee_data) {
+
+			//$row_count = 0;
+
+			while ($employee_row = mysqli_fetch_row($employee_data)) {
+				
+				 $employee_result = $employee_row;
+
+				 //$row_count++;
+
+			}
+
+			return $employee_result;
+
+		}
+
+		mysqli_close($this -> conn);
+
+	}
+
 }
+
