@@ -6,11 +6,15 @@
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="../assets/node_modules/jquery-modal/jquery.modal.css" type="text/css" media="screen" />
-		
+		<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkSuDt0Nzm12nCmku5uskJbOc-JV_JMJU&callback=initMap">
+    </script>
+    <script src="../assets/javascript/realtimeData.js" type="text/javascript" charset="utf-8"></script>
+
 	</head>
 
-	<body>
-
+	<body onload="initialize()">
+		
 		<div class="container">
 
 			<h1>Employees info</h1>
@@ -42,7 +46,7 @@
 								<td class="employee-id"><?php echo $employee_info["id"]; ?></td>
 								<td class="employee-name"><?php echo $employee_info["user_name"]; ?></td>
 								<td class="employee-email"><?php echo $employee_info["email"]; ?></td>
-								<td><a href="#view-employee-info" rel="modal:open" class="view-employee" onclick="viewEmployee(event)">view</a></td>
+								<td><a href="#view-employee-info" rel="modal:open" class="view-employee" onclick="viewEmployee(event);">view</a></td>
 								<td><a href="#edit-user-form" rel="modal:open" onclick="viewEmployee(event)" class="edit-employee">edit</a></td>
 								<td><a href="#" onclick="deleteEmployee(event)" class="delete-employee">delete</a></td>
 							</tr>	
@@ -88,7 +92,7 @@
 				    
   				</div>
 
-  				<a href="#" class="btn btn-info" rel="modal:close" onclick="createEmployee()">Add</a>
+  				<a href="#" class="btn btn-info" rel="modal:close" onclick="createEmployee();uploadImage()">Add</a>
 
 			</form>
 
@@ -96,7 +100,7 @@
 		
 		</div>
 
-		<table id="view-employee-info" class="modal table table-striped" style="display: none">
+		<table id="view-employee-info" class="modal table table-striped" style="opacity: 0; margin-top:-824px;">
 			
 			<tr>
 				<th><h3>Employee's Info</h3></th>
@@ -114,14 +118,19 @@
 
 			<tr>
 				<th>Address</th>
-				<td class="view-address"></td>
+				<td class="view-address" id="address"></td>
 			</tr>
 
 			<tr>
 				<th>Image</th>
 				<td class="view-image"></td>
 			</tr>
-
+			<tr>
+				<th>Map</th>
+				<td id="map_canvas" style="width: 320px; height: 480px;"></td>
+			 
+			</tr>
+			
 			<tr>
 				<td><a href="#" class="btn btn-danger" rel="modal:close">Close</a></td>
 			</tr>
@@ -165,12 +174,19 @@
 			</form>
 			
 			<input type="hidden" id="employee_old_email" value="">
+			
+			
+
+				
+			
+		
 
 	</body>
 	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="../assets/node_modules/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../assets/node_modules/jquery-modal/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../assets/javascript/realtimeData.js" type="text/javascript" charset="utf-8"></script>
+	
+	
 
 </html>

@@ -2,6 +2,12 @@
 
 	// Ajax request to sent post data to the CreateEmployeeController
 
+	$(document).ready(function(){
+		
+		
+		//initialize();
+	});
+
 	function createEmployee() {
 
 		var username = $("form#create-user-form .form-group #employee-name").val();
@@ -44,7 +50,7 @@
 
 	function viewEmployee(event) {
 
-		
+			$("#view-employee-info").css("opacity","1").css("margin-top","0");
 
 			var employee_email_view = $(event.target).parent().parent().children("td.employee-email").text();
 			
@@ -77,6 +83,8 @@
 					$("#employee-email-edit").attr("value", view_json['employee-email']);
 					$("#employee-address-edit").attr("value", view_json['employee-address']);
 					$("#employee-picture-edit").attr("value", view_json['employee-image']);
+
+					codeAddress();
 
 				}
 
@@ -161,6 +169,110 @@
 		});
 
 	}
+
+	//upload image to the images folder
+
+	function uploadImage() {
+
+		var file_data = new FormData();
+		file_data.append('file', $("#employee-picture")[0]);
+
+		$.ajax({
+
+			url: "../controllers/FileUploadController.php",
+			type: "post",
+			data: {
+				
+				"image-file": file_data
+			
+			},
+
+			success: function(file) {
+				$(".container").append("Image uploaded");
+			}
+
+		});
+
+	}
+
+	// function convertAddress() {
+
+	// 	var geocoder = new google.maps.Geocoder();
+	// 	var address = "new york";
+
+	// 	geocoder.geocode( { 'address': address}, function(results, status) {
+
+	// 	if (status == google.maps.GeocoderStatus.OK) {
+	// 	    var latitude = results[0].geometry.location.lat();
+	// 	    var longitude = results[0].geometry.location.lng();
+	// 	    //alert(latitude);
+	// 	    } 
+	// 	});
+
+	// 	var mapDiv = document.getElementById('map');
+ //        var map = new google.maps.Map(mapDiv, {
+ //            center: {lat: latitude, lng: longitude},
+ //            zoom: 8
+ //        }); 
+
+	// }
+
+	// function initMaps() {
+
+	// 	var geocoder = new google.maps.Geocoder();
+	// 	var address = "new york";
+
+	// 	geocoder.geocode( { 'address': address}, function(results, status) {
+
+	// 	if (status == google.maps.GeocoderStatus.OK) {
+	// 	    var latitude = results[0].geometry.location.lat();
+	// 	    var longitude = results[0].geometry.location.lng();
+	// 	    //alert(latitude);
+	// 	    } 
+	// 	});
+
+ //        var mapDiv = document.getElementById('map');
+ //        var map = new google.maps.Map(mapDiv, {
+ //            center: {lat: 44.540, lng: -78.546},
+ //            zoom: 8
+ //        });
+ //      }
+
+  
+  //var count = 0;
+
+  var geocoder;
+  var map;
+  
+  function initialize() {
+  	
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      zoom: 8,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    
+  }
+
+  function codeAddress() {
+    var address = $("#address").text();
+    //var address = document.getElementById("address").value;
+    //$("td#map_canvas").css("display","");
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
 
 
 

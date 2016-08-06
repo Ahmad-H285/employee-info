@@ -33,7 +33,7 @@ Class Employee {
 
 		$sql = "INSERT INTO `users`(`user_name`, `email`, `address`, `image_location`) VALUES ('$user_name','$email','$address','$image_location')";
 
-		if( !(mysqli_query($this -> conn, $sql) == true ) ) {
+		if( !(mysqli_query($this -> conn, $sql) ) ) {
 			echo "Problem occured while adding employee";
 		}
 
