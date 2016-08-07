@@ -24,8 +24,6 @@ Class Employee {
 
 		}
 
-		//echo "success";
-
 	}
 
 	// create a new employee entry in the users table
@@ -50,16 +48,12 @@ Class Employee {
 
 		$list_result = mysqli_query($this -> conn, $retrieve_employees);
 
-		//var_dump($list_result);
-
 		if($list_result) {
 
 			$row_count = 0;
 
 			while ($employee_record = mysqli_fetch_array($list_result)) {
 				
-				//var_dump($employee_record);
-
 				 $result[$row_count] = $employee_record;
 
 				 $row_count++;
@@ -84,13 +78,9 @@ Class Employee {
 
 		if($employee_data) {
 
-			//$row_count = 0;
-
 			while ($employee_row = mysqli_fetch_row($employee_data)) {
 				
 				 $employee_result = $employee_row;
-
-				 //$row_count++;
 
 			}
 
@@ -116,13 +106,9 @@ Class Employee {
 
 		if($employee_new_record) {
 
-			//$row_count = 0;
-
 			while ($employee_new = mysqli_fetch_row($employee_new_record)) {
 				
 				 $employee_edit = $employee_new;
-
-				 //$row_count++;
 
 			}
 
@@ -153,6 +139,12 @@ Class Employee {
 	// Upload employee image
 
 	function uploadEmployeeImage($image_file) {
+
+		if($image_file['type'] != 'image/png' && $image_file['type'] != 'image/jpeg' && $image_file['type'] != 'image/png' && $image_file['type'] != 'image/gif' && $image_file['type'] != 'image/JPEG' && $image_file['type'] != 'image/PNG' && $image_file['type'] != 'image/GIF' && $image_file['type'] != 'image/jpg' && $image_file['type'] != 'image/JPG'){
+    	
+    		die('Unsupported filetype uploaded.');
+		
+		}
 
 		if(!move_uploaded_file($image_file['tmp_name'], '../assets/images/'.$image_file['name'])) {
 

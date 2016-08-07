@@ -1,10 +1,6 @@
 <?php
 
-	//echo "Hi There";
-
 	require_once "../models/Employee.php";
-
-	//echo $_FILES['file_attach']['tmp_name'];
 
 	$image_upload = new Employee();
 

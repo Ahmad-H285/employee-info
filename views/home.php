@@ -6,10 +6,6 @@
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="../assets/node_modules/jquery-modal/jquery.modal.css" type="text/css" media="screen" />
-		<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkSuDt0Nzm12nCmku5uskJbOc-JV_JMJU&callback=initMap">
-    </script>
-    <script src="../assets/javascript/realtimeData.js" type="text/javascript" charset="utf-8"></script>
 
 	</head>
 
@@ -188,7 +184,9 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="../assets/node_modules/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../assets/node_modules/jquery-modal/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
-	
-	
+	<script src="../assets/javascript/realtimeData.js" type="text/javascript" charset="utf-8"></script>
+	<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkSuDt0Nzm12nCmku5uskJbOc-JV_JMJU&callback=initMap">
+    </script>
 
 </html>

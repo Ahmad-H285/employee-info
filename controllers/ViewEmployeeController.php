@@ -16,4 +16,3 @@
 		));
 
 	echo $employee_array;
-	//var_dump($employee_record[0]);

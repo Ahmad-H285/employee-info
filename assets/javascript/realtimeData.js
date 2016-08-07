@@ -44,10 +44,15 @@
 
 	function viewEmployee(event) {
 
-			$("#view-employee-info").css("opacity","1").css("margin-top","0");
-
 			var employee_email_view = $(event.target).parent().parent().children("td.employee-email").text();
 			
+			var button_check = $(event.target).text();
+
+			if(button_check == "view")
+			{
+				$("#view-employee-info").css("opacity","1").css("margin-top","0");
+			}
+
 			$.ajax({
 
 				url: "../controllers/ViewEmployeeController.php",
@@ -78,7 +83,10 @@
 					$("#employee-address-edit").attr("value", view_json['employee-address']);
 					$("#employee-picture-edit").attr("value", view_json['employee-image']);
 
-					codeAddress();
+					if(button_check == "view")
+					{
+						codeAddress();
+					}
 
 				}
 
@@ -157,7 +165,6 @@
 
 			success: function(remove) {
 
-				//$(".container").append(remove);
 				$("td.employee-email").filter(function() {
 					
 					return $(this).text() === employee_email_delete;
@@ -218,8 +225,9 @@
     //translates Address to longitude and latitude using Geocode Google Api
 
     function codeAddress() {
+
 	    var address = $("#address").text();
-	    //var address = document.getElementById("address").value;
+	    
 	    geocoder.geocode( { 'address': address}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        map.setCenter(results[0].geometry.location);
@@ -228,9 +236,10 @@
 	            position: results[0].geometry.location
 	        });
 	      } else {
-	        alert("Geocode was not successful for the following reason: " + status);
+	        alert("No address for this employee to be displayed, Please insert one");
 	      }
 	    });
+	    
     }
 
 

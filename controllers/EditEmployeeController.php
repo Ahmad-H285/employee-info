@@ -2,13 +2,6 @@
 
 	require_once "../models/Employee.php";
 
-	// echo $_POST['employee_edit_email_old'];
-	
-	// echo $_POST['employee_edit_name'];
-	// echo $_POST['employee_edit_email'];
-	// echo $_POST['employee_edit_address'];
-	// echo $_POST['employee_edit_picture'];
-
 	$employee_edit = new Employee();
 	$employee_edit_record = $employee_edit -> editEmployee(
 			
