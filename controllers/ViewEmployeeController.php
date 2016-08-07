@@ -1,7 +1,6 @@
 
 <?php 
 
-
 	require_once "../models/Employee.php";
 
 	$employee_result = new Employee();

@@ -12,6 +12,7 @@ Class Employee {
 	private $address;
 	private $image_location;
 	private $single_employee_email;
+	private $image_file;
 
 	function __construct() {
 
@@ -45,7 +46,7 @@ Class Employee {
 
 	function listEmployees () {
 
-		$retrieve_employees = "SELECT `id`, `user_name`, `email` FROM `users`";
+		$retrieve_employees = "SELECT `id`, `user_name`, `email`, `image_location` FROM `users`";
 
 		$list_result = mysqli_query($this -> conn, $retrieve_employees);
 
@@ -146,6 +147,20 @@ Class Employee {
 			echo "Record could not be deleted";
 
 		}
+
+	}
+
+	// Upload employee image
+
+	function uploadEmployeeImage($image_file) {
+
+		if(!move_uploaded_file($image_file['tmp_name'], '../assets/images/'.$image_file['name'])) {
+
+			die('Error file upload');
+
+		}
+
+		echo "file uploaded successfully";
 
 	}
 

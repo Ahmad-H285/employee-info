@@ -2,12 +2,6 @@
 
 	// Ajax request to sent post data to the CreateEmployeeController
 
-	$(document).ready(function(){
-		
-		
-		//initialize();
-	});
-
 	function createEmployee() {
 
 		var username = $("form#create-user-form .form-group #employee-name").val();
@@ -34,11 +28,11 @@
 				var last_id_string = $("tr:last").children("td:first").html();
 				var last_id_int = parseInt(last_id_string) + 1;
 				var new_id_string = last_id_int.toString();
-				
-				$("tr:last").after("<tr><td class='employee-id'>"+new_id_string+
-					"</td><td class='employee-name>"+create_json['employee-name']+
-					"</td><td class='employee-email>"+create_json['employee-email']+
-					"</td><td><a href='#' class='view-employee'>view</a></td><td><a href='#' class='edit-employee'>edit</a></td><td><a href='#' class='delete-employee'>delete</a></td></tr>");
+
+				$("a.delete-employee:last").parent().parent().after("<tr><td class='employee-image'><img src='../assets/images/"+create_json['employee-image']+"' style='width: 75px'>"+
+					"</td><td class='employee-name'>"+create_json['employee-name']+
+					"</td><td class='employee-email'>"+create_json['employee-email']+
+					"</td><td><a href='#view-employee-info' class='view-employee' rel='modal:open' onclick='viewEmployee(event);'>view</a></td><td><a href='#edit-user-form' rel='modal:open' onclick='viewEmployee(event);' class='edit-employee'>edit</a></td><td><a href='#' onclick='deleteEmployee(event)' class='delete-employee'>delete</a></td></tr>");
 
 			}
 
@@ -96,7 +90,7 @@
 
 	// Ajax request to send post request to EditEmployeeController to edit specific employee data
 
-	function editEmployee() {
+	function editEmployee(event) {
 
 		var employee_email_old = $("input[type='hidden']").attr("value");
 
@@ -122,6 +116,12 @@
 			success: function(edit) {
 
 				var edit_json = JSON.parse(edit);
+
+				$("td.employee-email").filter(function() {
+					
+					return $(this).text() === employee_email_old;
+				
+				}).parent().children("td.employee-image").children("img").attr("src","../assets/images/"+edit_json['employee-image']);
 
 				$("td.employee-email").filter(function() {
 					
@@ -175,104 +175,63 @@
 	function uploadImage() {
 
 		var file_data = new FormData();
-		file_data.append('file', $("#employee-picture")[0]);
+
+		file_data.append('file_attach', $("input#employee-picture")[0].files[0]);
+		file_data.append('file_attach_edit', $("input#employee-picture-edit")[0].files[0]);
 
 		$.ajax({
 
 			url: "../controllers/FileUploadController.php",
+			data: file_data,
+			processData: false,
+			contentType: false,
 			type: "post",
-			data: {
-				
-				"image-file": file_data
-			
-			},
+			dataType: 'json',
 
-			success: function(file) {
-				$(".container").append("Image uploaded");
+			success: function(response) {
+
+				$(".container").append("Hi There");
 			}
 
 		});
 
 	}
 
-	// function convertAddress() {
+	//initialize Google Maps Api request
 
-	// 	var geocoder = new google.maps.Geocoder();
-	// 	var address = "new york";
-
-	// 	geocoder.geocode( { 'address': address}, function(results, status) {
-
-	// 	if (status == google.maps.GeocoderStatus.OK) {
-	// 	    var latitude = results[0].geometry.location.lat();
-	// 	    var longitude = results[0].geometry.location.lng();
-	// 	    //alert(latitude);
-	// 	    } 
-	// 	});
-
-	// 	var mapDiv = document.getElementById('map');
- //        var map = new google.maps.Map(mapDiv, {
- //            center: {lat: latitude, lng: longitude},
- //            zoom: 8
- //        }); 
-
-	// }
-
-	// function initMaps() {
-
-	// 	var geocoder = new google.maps.Geocoder();
-	// 	var address = "new york";
-
-	// 	geocoder.geocode( { 'address': address}, function(results, status) {
-
-	// 	if (status == google.maps.GeocoderStatus.OK) {
-	// 	    var latitude = results[0].geometry.location.lat();
-	// 	    var longitude = results[0].geometry.location.lng();
-	// 	    //alert(latitude);
-	// 	    } 
-	// 	});
-
- //        var mapDiv = document.getElementById('map');
- //        var map = new google.maps.Map(mapDiv, {
- //            center: {lat: 44.540, lng: -78.546},
- //            zoom: 8
- //        });
- //      }
-
+	var geocoder;
+	var map;
   
-  //var count = 0;
-
-  var geocoder;
-  var map;
-  
-  function initialize() {
+    function initialize() {
   	
-    geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
-    var myOptions = {
-      zoom: 8,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	    geocoder = new google.maps.Geocoder();
+	    var latlng = new google.maps.LatLng(-34.397, 150.644);
+	    var myOptions = {
+	      zoom: 8,
+	      center: latlng,
+	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	    }
+	    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     
-  }
+    }
 
-  function codeAddress() {
-    var address = $("#address").text();
-    //var address = document.getElementById("address").value;
-    //$("td#map_canvas").css("display","");
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-  }
+    //translates Address to longitude and latitude using Geocode Google Api
+
+    function codeAddress() {
+	    var address = $("#address").text();
+	    //var address = document.getElementById("address").value;
+	    geocoder.geocode( { 'address': address}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        map.setCenter(results[0].geometry.location);
+	        var marker = new google.maps.Marker({
+	            map: map,
+	            position: results[0].geometry.location
+	        });
+	      } else {
+	        alert("Geocode was not successful for the following reason: " + status);
+	      }
+	    });
+    }
 
 
 

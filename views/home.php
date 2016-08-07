@@ -25,7 +25,7 @@
 					
 					<tr>
 						
-						<th>#</th>
+						<th>Picture</th>
 						<th>Name</th>
 						<th>Email</th>
 
@@ -43,11 +43,11 @@
 						
 						foreach ($display_employees as $employees => $employee_info) { ?>
 							<tr>
-								<td class="employee-id"><?php echo $employee_info["id"]; ?></td>
+								<td class="employee-image"><img src="../assets/images/<?php echo $employee_info['image_location'];?>" style="width: 75px"></td>
 								<td class="employee-name"><?php echo $employee_info["user_name"]; ?></td>
 								<td class="employee-email"><?php echo $employee_info["email"]; ?></td>
 								<td><a href="#view-employee-info" rel="modal:open" class="view-employee" onclick="viewEmployee(event);">view</a></td>
-								<td><a href="#edit-user-form" rel="modal:open" onclick="viewEmployee(event)" class="edit-employee">edit</a></td>
+								<td><a href="#edit-user-form" rel="modal:open" onclick="viewEmployee(event);" class="edit-employee">edit</a></td>
 								<td><a href="#" onclick="deleteEmployee(event)" class="delete-employee">delete</a></td>
 							</tr>	
 							
@@ -56,6 +56,8 @@
 				</tbody>
 
 			</table>
+
+			<img id="image_upload" src="">
 
 
 			
@@ -88,7 +90,7 @@
   				<div class="form-group">
 
     				<label for="employee-picture">Image upload</label>
-				    <input type="file" id="employee-picture">
+				    <input type="file" name="file_attach" id="employee-picture">
 				    
   				</div>
 
@@ -96,11 +98,11 @@
 
 			</form>
 
-			<a href="#create-user-form" rel="modal:open" class="btn btn-danger">Add Employee</a>
+			<a href="#create-user-form" rel="modal:open" id="image_create" class="btn btn-danger">Add Employee</a>
 		
 		</div>
 
-		<table id="view-employee-info" class="modal table table-striped" style="opacity: 0; margin-top:-824px;">
+		<table id="view-employee-info" class="modal table table-striped" style="opacity: 0; margin-top:-860px;">
 			
 			<tr>
 				<th><h3>Employee's Info</h3></th>
@@ -165,11 +167,11 @@
   				<div class="form-group">
 
     				<label for="employee-picture-edit">Image upload</label>
-				    <input type="file" id="employee-picture-edit">
+				    <input type="file" name="file_attach_edit" id="employee-picture-edit">
 				    
   				</div>
 
-  				<a href="#" class="btn btn-info" rel="modal:close" onclick="editEmployee(event)">Save</a>
+  				<a href="#" class="btn btn-info" id="edit_image" rel="modal:close" onclick="editEmployee(event);uploadImage()">Save</a>
 
 			</form>
 			
